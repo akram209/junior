@@ -48,110 +48,26 @@
             </div>
         </div>
     </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-block">
+                <h6 class="card-title">Card title</h6>
+                <hr>
+                <p class="card-text p-y-1">Some quick example text to build on the card title .</p>
+                <div id="react">
+                    <a href="#"><i class="fa-regular fa-comment me-2 fa-lg px-4"></i></a>
+                    <a href="#"><i class="fa-regular fa-thumbs-up me-2 fa-lg px-4"></i></a>
+                </div>
 
-    <!-- Posts Container -->
-    <div id="posts" class="container mt-5">
-        <!-- Posts will be dynamically inserted here -->
-    </div>
+                <!-- Posts Container -->
+                <div id="posts" class="container mt-5">
+                    <!-- Posts will be dynamically inserted here -->
+                </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            fetchPosts();
-        });
-
-        function fetchPosts() {
-            fetch('/api/posts', {
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Authorization': 'Bearer {{ auth()->user()->createToken('API Token')->plainTextToken }}'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    let postsContainer = document.getElementById('posts');
-                    postsContainer.innerHTML = '';
-
-                    data.forEach(post => {
-                        // Create post elements
-                        let postDiv = document.createElement('div');
-                        postDiv.className = 'col-md-4 mb-4';
-                        postDiv.id = `post-${post.id}`; // Unique ID for each post
-
-
-                        let cardDiv = document.createElement('div');
-                        cardDiv.className = 'card';
-
-                        let cardBlockDiv = document.createElement('div');
-                        cardBlockDiv.className = 'card-body';
-
-                        let cardTitle = document.createElement('h6');
-                        cardTitle.className = 'card-title';
-                        cardTitle.textContent = post.username;
-
-                        let cardContent = document.createElement('p');
-                        cardContent.className = 'card-text';
-                        cardContent.textContent = post.content;
-
-                        let hr = document.createElement('hr');
-
-                        let reactDiv = document.createElement('div');
-                        reactDiv.id = 'react';
-
-                        let commentLink = document.createElement('a');
-                        commentLink.href = '#';
-                        commentLink.id = `add-comment-${post.id}`; // Unique ID for comment toggle
-                        commentLink.innerHTML = '<i class="fa-regular fa-comment me-2 fa-lg px-4"></i>';
-
-                        let likeLink = document.createElement('a');
-                        likeLink.href = '#';
-                        likeLink.innerHTML = '<i class="fa-regular fa-thumbs-up me-2 fa-lg px-4"></i>';
-
-                        reactDiv.appendChild(commentLink);
-                        reactDiv.appendChild(likeLink);
-
-                        cardBlockDiv.appendChild(cardTitle);
-                        cardBlockDiv.appendChild(hr);
-                        cardBlockDiv.appendChild(cardContent);
-                        cardBlockDiv.appendChild(reactDiv);
-
-                        cardDiv.appendChild(cardBlockDiv);
-                        postDiv.appendChild(cardDiv);
-                        postsContainer.appendChild(postDiv);
-
-                        // Add event listener for adding comments
-                        commentLink.addEventListener('click', function() {
-                            toggleCommentArea(post.id);
-                        });
-                    });
-                })
-                .catch(error => console.error('Error fetching posts:', error));
-        }
-
-        function toggleCommentArea(postId) {
-            let postDiv = document.getElementById(`post-${postId}`);
-            let commentArea = postDiv.querySelector('.comment-area');
-
-            if (commentArea) {
-                // If comment area exists, remove it
-                commentArea.remove();
-            } else {
-                // Create a new comment area
-                let newCommentArea = document.createElement('div');
-                newCommentArea.className = 'comment-area mt-2';
-                newCommentArea.innerHTML =
-                    '<form>' +
-                    '<textarea class="form-control" rows="2" placeholder="Write a comment..."></textarea>' +
-                    '<button type="submit" class="btn btn-success mt-2">Comment</button>' +
-                    '</form>';
-
-                postDiv.appendChild(newCommentArea);
-            }
-        }
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-    </script>
+            </div>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+            </script>
 
 </body>
 
