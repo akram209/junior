@@ -8,4 +8,6 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::get('/posts', [PostController::class, 'getAll'])->middleware(['auth:sanctum', 'auth']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('posts', PostController::class)->except(['create', 'edit', 'update']);
+});
