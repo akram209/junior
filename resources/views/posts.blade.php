@@ -44,7 +44,7 @@
                                 @enderror --}}
                             </div>
                     </div>
-                    <div class="modal-footer">
+                   <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-success">Publish</button>
                     </div>
@@ -54,14 +54,14 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4">
+    <div id='1' class="col-md-4">
         <div class="card">
             <div class="card-block">
-                <h6 class="card-title">Card title</h6>
+                <h6 class="card-title">username</h6>
                 <hr>
-                <p class="card-text p-y-1">Some quick example text to build on the card title .</p>
+                <p class="card-text p-y-1">content</p>
                 <div id="react">
-                    <a href="#"><i class="fa-regular fa-comment me-2 fa-lg px-4"></i></a>
+                    <a href="#" id="add-comment"><i class="fa-regular fa-comment me-2 fa-lg px-4"></i></a>
                     <a href="#"><i class="fa-regular fa-thumbs-up me-2 fa-lg px-4"></i></a>
                 </div>
 
@@ -70,6 +70,24 @@
     </div>
 
     </div>
+    <script>
+        var toggle = 0;
+        document.getElementById('add-comment').addEventListener('click', function() {
+            if (toggle == 0) {
+                toggle = 1;
+                var comment_area = document.createElement('div');
+                comment_area.innerHTML =
+                    '<form>' +
+                    '<textarea class="form-control" rows="2"placeholder="Write a comment..."></textarea>' +
+                    '<button type="submit" class="btn btn-success">Comment</button>' +
+                    '</form>';
+                document.getElementById('1').appendChild(comment_area);
+            } else {
+                toggle = 0;
+                document.getElementById('1').lastElementChild.remove();
+            }
+        });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
