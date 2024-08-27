@@ -11,17 +11,21 @@ class PostController extends Controller
     public function index()
     {
         // Fetch all posts
-        $posts = Post::all();
+        $posts = Post::with(['user', 'comments.user']) // Eager load the user and comments relationships
+            ->latest()
+            ->limit(5)
+            ->get();
         return response()->json($posts, Response::HTTP_OK);
     }
 
-  
+
     public function store(Request $request)
     {
         // Validate request
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
+            'user_id' => 'required|exists:users,id', // Make sure to add this validation rule
         ]);
 
         // Create a new post
@@ -30,7 +34,7 @@ class PostController extends Controller
         return response()->json($post, Response::HTTP_CREATED);
     }
 
-   
+
     public function destroy($id)
     {
         // Fetch the post
