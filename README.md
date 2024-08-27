@@ -22,9 +22,10 @@
 ## Features
 
 - User authentication and authorization
+- Api authentication with sanctum package
 - Create, read, update, and delete posts
 - Comment on posts
-- Notification system for comments
+- Notification system for comments without using services by event and listeners and laravel notification
 - Responsive UI with Bootstrap
 
 ## Installation
