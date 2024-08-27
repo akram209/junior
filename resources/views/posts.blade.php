@@ -237,7 +237,7 @@
                 let commentForm = document.getElementById(`comment-form-${postId}`);
                 commentForm.addEventListener('submit', function(event) {
                     event.preventDefault(); // Prevent the default form submission
-
+                    newCommentArea.remove();
                     let token =
                         '{{ auth()->user()->createToken('API Token')->plainTextToken }}'; // Ensure you have the token
                     let commentContent = commentForm.querySelector('textarea').value;

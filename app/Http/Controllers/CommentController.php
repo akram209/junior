@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\SendNotification;
 use App\Models\Comment;
 use App\Models\Post;
+use App\Models\User;
+use Illuminate\Console\Scheduling\Event;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 
@@ -20,6 +23,8 @@ class CommentController extends Controller
 
         // Create a new comment
         $comment = Comment::create($validated);
+        $user = User::find($comment->user_id);
+        event(new SendNotification($user));
         return response()->json($comment, Response::HTTP_CREATED);
     }
     public function getComments($postId)
